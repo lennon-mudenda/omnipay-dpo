@@ -19,7 +19,7 @@ class Response extends AbstractResponse
 
     public function getTransactionId()
     {
-        return $this->data['reference'] ?? null;
+        return $this->data['token'] ?? null;
     }
 
     public function getCardReference()

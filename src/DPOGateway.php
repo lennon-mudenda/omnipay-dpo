@@ -2,8 +2,10 @@
 
 namespace Omnipay\DPO;
 
+use Omnipay\Common\AbstractGateway;
 use Omnipay\DPO\Message\CreditCardRequest;
-use Omnipay\DPO\Message\CardReferenceRequest;
+use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Message\RequestInterface;
 use Omnipay\DPO\Message\TransactionReferenceRequest;
 
 class DPOGateway extends AbstractGateway
@@ -25,53 +27,21 @@ class DPOGateway extends AbstractGateway
         return [];
     }
 
-    public function authorize(array $options = [])
-    {
-        return $this->createRequest(CreditCardRequest::class, $options);
-    }
-
+	/**
+	 * @param array $options
+	 * @return AbstractRequest|RequestInterface
+	 */
     public function purchase(array $options = [])
     {
         return $this->createRequest(CreditCardRequest::class, $options);
     }
 
-    public function completeAuthorize(array $options = [])
-    {
-        return $this->createRequest(TransactionReferenceRequest::class, $options);
-    }
-
-    public function capture(array $options = [])
-    {
-        return $this->createRequest(TransactionReferenceRequest::class, $options);
-    }
-
-    public function completePurchase(array $options = [])
-    {
-        return $this->createRequest(TransactionReferenceRequest::class, $options);
-    }
-
+	/**
+	 * @param array $options
+	 * @return AbstractRequest|RequestInterface
+	 */
     public function refund(array $options = [])
     {
         return $this->createRequest(TransactionReferenceRequest::class, $options);
-    }
-
-    public function void(array $options = [])
-    {
-        return $this->createRequest(TransactionReferenceRequest::class, $options);
-    }
-
-    public function createCard(array $options = [])
-    {
-        return $this->createRequest(CreditCardRequest::class, $options);
-    }
-
-    public function updateCard(array $options = [])
-    {
-        return $this->createRequest(CardReferenceRequest::class, $options);
-    }
-
-    public function deleteCard(array $options = [])
-    {
-        return $this->createRequest(CardReferenceRequest::class, $options);
     }
 }
