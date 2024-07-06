@@ -14,7 +14,7 @@ abstract class BaseRequest extends AbstractRequest
 				"",
 				__DIR__
 			),
-		])->load();
+		])->safeLoad();
 	}
 
 	public function getCompanyToken(): ?string
