@@ -4,9 +4,8 @@ namespace Omnipay\DPO\Message;
 
 use Dpo\Common\Dpo;
 use Omnipay\Common\Exception\InvalidRequestException;
-use Omnipay\Common\Exception\InvalidCreditCardException;
 
-class CreditCardRequest extends BaseRequest
+class InitiateTransactionRequest extends BaseRequest
 {
     /**
      * @throws InvalidRequestException
@@ -49,6 +48,7 @@ class CreditCardRequest extends BaseRequest
 			if ($response['success']){
 				$data['success'] = true;
 				$data['token'] = $response["transToken"];
+				$data['payURL'] = $dpoClient->getPayUrl();
 				$data['reference'] = $response["transRef"];
 				$data['result'] = $response["result"];
 				$data['message'] = "Success";

@@ -9,7 +9,7 @@ class Response extends AbstractResponse
 {
     public function isSuccessful(): bool
     {
-        return isset($this->data['success']) && $this->data['success'];
+        return isset($this->data['success']) && $this->data['success'] && !isset($this->data['payURL']);
     }
 
     public function getTransactionReference()
@@ -22,13 +22,30 @@ class Response extends AbstractResponse
         return $this->data['token'] ?? null;
     }
 
-    public function getCardReference()
-    {
-        return $this->data['reference'] ?? null;
-    }
-
     public function getMessage()
     {
         return $this->data['message'] ?? null;
     }
+
+	public function getMetadata()
+	{
+		return $this->data['metadata'] ?? null;
+	}
+
+	public function getTransactionPaymentLink(): ?string
+	{
+		if (!$this->getTransactionId()) return null;
+
+		return $this->data['payURL'] . "?ID=" . $this->getTransactionId();
+	}
+
+	public function isRedirect(): bool
+	{
+		return true;
+	}
+
+	public function getRedirectUrl(): ?string
+	{
+		return $this->getTransactionPaymentLink();
+	}
 }

@@ -3,10 +3,10 @@
 namespace Omnipay\DPO;
 
 use Omnipay\Common\AbstractGateway;
-use Omnipay\DPO\Message\CreditCardRequest;
+use Omnipay\DPO\Message\BaseRequest;
 use Omnipay\Common\Message\AbstractRequest;
-use Omnipay\Common\Message\RequestInterface;
-use Omnipay\DPO\Message\TransactionReferenceRequest;
+use Omnipay\DPO\Message\VerifyTransactionRequest;
+use Omnipay\DPO\Message\InitiateTransactionRequest;
 
 class DPOGateway extends AbstractGateway
 {
@@ -29,19 +29,28 @@ class DPOGateway extends AbstractGateway
 
 	/**
 	 * @param array $options
-	 * @return AbstractRequest|RequestInterface
+	 * @return AbstractRequest|BaseRequest
 	 */
-    public function purchase(array $options = [])
-    {
-        return $this->createRequest(CreditCardRequest::class, $options);
+    public function purchase(array $options = []): BaseRequest
+	{
+        return $this->createRequest(InitiateTransactionRequest::class, $options);
     }
 
 	/**
 	 * @param array $options
-	 * @return AbstractRequest|RequestInterface
+	 * @return AbstractRequest|BaseRequest
 	 */
-    public function refund(array $options = [])
-    {
-        return $this->createRequest(TransactionReferenceRequest::class, $options);
+	public function completePurchase(array $options = []): BaseRequest
+	{
+		return $this->createRequest(VerifyTransactionRequest::class, $options);
+	}
+
+	/**
+	 * @param array $options
+	 * @return AbstractRequest|BaseRequest
+	 */
+    public function refund(array $options = []): BaseRequest
+	{
+        return $this->createRequest(VerifyTransactionRequest::class, $options);
     }
 }
