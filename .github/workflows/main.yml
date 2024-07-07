@@ -1,44 +1,44 @@
 name: Tests
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
-    test:
-        runs-on: ${{ matrix.os }}
+  test:
+    runs-on: ${{ matrix.os }}
 
-        environment: CI
+    environment: CI
 
-        env:
-          DPO_TOKEN: ${{ secrets.DPO_TOKEN }}
-          DPO_REFERENCE: ${{ secrets.DPO_REFERENCE }}
-          DPO_SERVICE_ID: ${{ secrets.DPO_SERVICE_ID }}
+    env:
+      DPO_TOKEN: ${{ secrets.DPO_TOKEN }}
+      DPO_REFERENCE: ${{ secrets.DPO_REFERENCE }}
+      DPO_SERVICE_ID: ${{ secrets.DPO_SERVICE_ID }}
 
-        strategy:
-            fail-fast: true
-            matrix:
-                os: [ubuntu-latest, windows-latest]
-                php: [8.0, 7.4]
-                stability: [prefer-lowest, prefer-stable]
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        php: [ 8.0, 7.4 ]
+        stability: [ prefer-lowest, prefer-stable ]
 
-        name: P${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php }}
-                  extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
-                  coverage: none
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          coverage: none
 
-            - name: Setup problem matchers
-              run: |
-                  echo "::add-matcher::${{ runner.tool_cache }}/php.json"
-                  echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-            - name: Install dependencies
-              run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+      - name: Setup problem matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+      - name: Install dependencies
+        run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-            - name: Execute tests
-              run: vendor/bin/phpunit
+      - name: Execute tests
+        run: vendor/bin/phpunit
