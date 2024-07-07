@@ -40,5 +40,8 @@ jobs:
       - name: Install dependencies
         run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
+      - name: Display Env Variables
+        run: echo "DPO_TOKEN=${DPO_TOKEN} DPO_SERVICE_ID=${DPO_SERVICE_ID}"
+
       - name: Execute tests
         run: vendor/bin/phpunit
