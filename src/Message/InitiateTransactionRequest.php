@@ -40,13 +40,15 @@ class InitiateTransactionRequest extends BaseRequest
 
     public function sendData($data = []): Response
     {
+		$data['redirect'] = false;
 		try {
 			$dpoClient = new Dpo($this->getTestMode());
 
 			$response = $dpoClient->createToken($data);
 
 			if ($response['success']){
-				$data['success'] = true;
+				$data['success'] = false;
+				$data['redirect'] = true;
 				$data['token'] = $response["transToken"];
 				$data['payURL'] = $dpoClient->getPayUrl();
 				$data['reference'] = $response["transRef"];
