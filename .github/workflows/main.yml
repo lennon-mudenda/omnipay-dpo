@@ -5,6 +5,14 @@ on: [push, pull_request]
 jobs:
     test:
         runs-on: ${{ matrix.os }}
+
+        environment: CI
+
+        env:
+          DPO_TOKEN: ${{ secrets.DPO_TOKEN }}
+          DPO_REFERENCE: ${{ secrets.DPO_REFERENCE }}
+          DPO_SERVICE_ID: ${{ secrets.DPO_SERVICE_ID }}
+
         strategy:
             fail-fast: true
             matrix:
