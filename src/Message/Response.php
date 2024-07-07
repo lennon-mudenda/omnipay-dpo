@@ -3,9 +3,10 @@
 namespace Omnipay\DPO\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
+use Omnipay\Common\Message\ResponseInterface;
 
 
-class Response extends AbstractResponse
+class Response extends AbstractResponse implements ResponseInterface
 {
     public function isSuccessful(): bool
     {

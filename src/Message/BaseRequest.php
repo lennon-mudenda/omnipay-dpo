@@ -4,8 +4,9 @@ namespace Omnipay\DPO\Message;
 
 use Dotenv\Dotenv;
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Message\RequestInterface;
 
-abstract class BaseRequest extends AbstractRequest
+abstract class BaseRequest extends AbstractRequest implements RequestInterface
 {
 	private function loadEnv() {
 		Dotenv::createImmutable([
@@ -21,7 +22,7 @@ abstract class BaseRequest extends AbstractRequest
 	{
 		$this->loadEnv();
 
-		return $_ENV['DPO_TOKEN'];
+		return $this->getParameter('companyToken') ?? $_ENV['DPO_TOKEN'];
 	}
 
 	public function setCompanyToken(string $companyToken = null): void
@@ -35,7 +36,7 @@ abstract class BaseRequest extends AbstractRequest
 	{
 		$this->loadEnv();
 
-		return $_ENV['DPO_REFERENCE'];
+		return $this->getParameter('companyRef') ?? $_ENV['DPO_REFERENCE'];
 	}
 
 	public function setCompanyRef(string $companyRef = null): void
@@ -59,7 +60,7 @@ abstract class BaseRequest extends AbstractRequest
 	{
 		$this->loadEnv();
 
-		return $_ENV['DPO_SERVICE_ID'];
+		return $this->getParameter('serviceType') ?? $_ENV['DPO_SERVICE_ID'];
 	}
 
 	public function setServiceType(string $serviceType = null): void
