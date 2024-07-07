@@ -23,6 +23,7 @@ class VerifyTransactionRequest extends BaseRequest
 
     public function sendData($data): Response
     {
+		$data['redirect'] = false;
 		try {
 			$dpoClient = new Dpo($this->getTestMode());
 

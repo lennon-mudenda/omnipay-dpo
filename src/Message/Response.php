@@ -10,7 +10,7 @@ class Response extends AbstractResponse implements ResponseInterface
 {
     public function isSuccessful(): bool
     {
-        return isset($this->data['success']) && $this->data['success'] && !isset($this->data['payURL']);
+        return isset($this->data['success']) && $this->data['success'];
     }
 
     public function getTransactionReference()
@@ -42,7 +42,7 @@ class Response extends AbstractResponse implements ResponseInterface
 
 	public function isRedirect(): bool
 	{
-		return true;
+		return $this->data['redirect'] ?? false;
 	}
 
 	public function getRedirectUrl(): ?string
