@@ -34,16 +34,12 @@ abstract class BaseRequest extends AbstractRequest implements RequestInterface
 
 	public function getCompanyRef(): ?string
 	{
-		$this->loadEnv();
-
-		return $this->getParameter('companyRef') ?? $_ENV['DPO_REFERENCE'];
+		return $this->getParameter('companyRef');
 	}
 
 	public function setCompanyRef(string $companyRef = null): void
 	{
-		$this->loadEnv();
-
-		$this->setParameter('companyRef', $companyRef ?? $_ENV['DPO_REFERENCE']);
+		$this->setParameter('companyRef', $companyRef);
 	}
 
 	public function getCompanyAccRef(): ?string
