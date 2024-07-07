@@ -7,7 +7,7 @@ use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\DPO\Message\VerifyTransactionRequest;
 use Omnipay\DPO\Message\InitiateTransactionRequest;
 
-class DPOGateway extends AbstractGateway
+class Gateway extends AbstractGateway
 {
 
     /**
@@ -18,7 +18,7 @@ class DPOGateway extends AbstractGateway
      */
     public function getName(): string
     {
-        return 'DPO Payments';
+        return 'DPO';
     }
 
     public function getDefaultParameters(): array
