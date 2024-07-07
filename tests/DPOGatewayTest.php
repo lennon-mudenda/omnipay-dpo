@@ -4,7 +4,7 @@ namespace Omnipay\DPO\Tests;
 
 
 use Dotenv\Dotenv;
-use Omnipay\DPO\DPOGateway;
+use Omnipay\DPO\Gateway;
 use PHPUnit\Framework\TestCase;
 
 class DPOGatewayTest extends TestCase
@@ -42,7 +42,7 @@ class DPOGatewayTest extends TestCase
 
 	public function test_purchase_success(): void
 	{
-		$gateway = new DPOGateway();
+		$gateway = new Gateway();
 
 		$request = $gateway->purchase(
 			$this->getValidTransactionData()
@@ -55,7 +55,7 @@ class DPOGatewayTest extends TestCase
 
 	public function test_purchase_failure(): void
 	{
-		$gateway = new DPOGateway();
+		$gateway = new Gateway();
 
 		$request = $gateway->purchase(
 			$this->getInValidTransactionData()
@@ -68,7 +68,7 @@ class DPOGatewayTest extends TestCase
 
 	public function test_verify_failure(): void
 	{
-		$gateway = new DPOGateway();
+		$gateway = new Gateway();
 
 		$request = $gateway->purchase(
 			$this->getValidTransactionData()
